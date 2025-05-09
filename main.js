@@ -4,10 +4,12 @@ import {worte} from "./worte.js"
 const hangmanImg = document.getElementById("hangmanImg");
 const suchwortContainer = document.getElementById("suchwort");
 const result = document.getElementById("result");
+const buchs = document.getElementById("buchs");
+const buchsArray = [];
 
 let suchwort = worte[Math.floor(Math.random()*91100)];
 console.log("generiertes suchwort = " +suchwort )
-let suchwortArray = suchwort.toLowerCase().split("");
+let suchwortArray = suchwort.toUpperCase().split("");
 console.log(suchwortArray)
 let versuchArray = suchwortArray.slice().fill("_");
 console.log(versuchArray)
@@ -20,8 +22,9 @@ let fehlerIndex = 0;
 function restart() {
     console.log("RESTART")
     suchwort = worte[Math.floor(Math.random()*91100)];
-    suchwortArray = suchwort.toLowerCase().split("");
+    suchwortArray = suchwort.toUpperCase().split("");
     versuchArray = suchwortArray.slice().fill("_");
+     buchs.textContent = '';
     fehlerIndex = 0;
     console.log(`${fehlerImgArray[fehlerIndex]}`)
     hangmanImg.src = `./img/${fehlerImgArray[fehlerIndex]}`;
@@ -32,13 +35,11 @@ function restart() {
     draw(versuchArray) ;
 }
 
-
-
 document.addEventListener('keydown', function(event) {
-    const taste = event.key.toLowerCase();  
-    if (/^[a-z]$/.test(taste)) { 
+    const taste = event.key.toUpperCase();  
+    if (/^[A-Z]$/.test(taste)) { 
         console.log('Gedrückte Taste:', taste);
-        suchenBuch(taste);
+        enteredBuchs(taste);
     }
 });
 
@@ -64,13 +65,12 @@ function suchenBuch(taste) {
         hangmanImg.src = `./img/${fehlerImgArray[fehlerIndex]}`
         if (fehlerIndex === 7) {
             result.textContent = "Game Over";
-             restart ();
+            setTimeout(restart, 3000);
         }
-    
     }
     else {
-                    draw(versuchArray);
-            wincontrolle(versuchArray)
+        draw(versuchArray);
+        wincontrolle(versuchArray);
     }
 }
 
@@ -80,7 +80,16 @@ function wincontrolle(versuchArray) {
     console.log(controlle)
     if (controlle === false) {
         result.textContent = "ИГРА ОКОНЧЕНА. ТЫ ВЫИГРАЛ";
-        restart();
- 
+        setTimeout(restart, 3000);
     }
+}
+
+function enteredBuchs(taste) {
+        let result = buchsArray.includes(taste);
+        if (!result) {
+            buchsArray.push(taste)
+            suchenBuch(taste);
+
+        }
+        buchs.textContent = buchsArray.sort((a, b) => a.localeCompare(b)).join(" ");
 }

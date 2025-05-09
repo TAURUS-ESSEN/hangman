@@ -13,4 +13,19 @@
 
 .result {
     font-size: 2em;
+    margin: 1em;
+}
+
+.enteredBuchsAreaLabel {
+    margin-top: 2em;
+
+}
+
+.enteredBuchsArea {
+    min-width: 200px;
+    min-height: 100px;
+    padding: 0.5em;
+    background-color: aliceblue;
+    border-radius: 10px;
+    font-size: 1.2em;
 }
