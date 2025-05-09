@@ -29,3 +29,21 @@
     border-radius: 10px;
     font-size: 1.2em;
 }
+
+.abc {
+    max-width: 500px;
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.abc>button {
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.falsch {
+    background-color: red;
+}

@@ -6,6 +6,8 @@ const suchwortContainer = document.getElementById("suchwort");
 const result = document.getElementById("result");
 const buchs = document.getElementById("buchs");
 const buchsArray = [];
+const buttons = document.querySelectorAll("button");
+const abc = document.querySelector(".abc");
 
 let suchwort = worte[Math.floor(Math.random()*91100)];
 console.log("generiertes suchwort = ", suchwort )
@@ -18,20 +20,6 @@ draw(versuchArray)
 const fehlerImgArray = ['hm0.jpg', 'hm1.jpg','hm2.jpg','hm3.jpg','hm4.jpg','hm5.jpg', 'hm6.jpg', 'hm7.jpg'];
 let fehlerIndex = 0;
 
-function restart() {
-    console.log("---------------------------------------")
-    console.log("RESTART")
-    suchwort = worte[Math.floor(Math.random()*91100)];
-    suchwortArray = suchwort.toUpperCase().split("");
-    versuchArray = suchwortArray.slice().fill("_");
-    buchs.textContent = '';
-    buchsArray.length = 0;
-    fehlerIndex = 0;
-    hangmanImg.src = `./img/${fehlerImgArray[fehlerIndex]}`;
-    result.textContent = '';
-    draw(versuchArray) ;
-}
-
 document.addEventListener('keydown', function(event) {
     const taste = event.key.toUpperCase();  
     if (/^[A-Z]$/.test(taste)) { 
@@ -40,11 +28,19 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        enteredBuchsControlle(button.textContent, button);
+        button.disabled = true;
+    })
+})
+
+
 function draw(versuchArray) {
     suchwortContainer.textContent = versuchArray.join(" ");
 }
 
-function suchenBuch(taste) {
+function suchenBuch(taste, button) {
     let counter = 0;
     suchwortArray.forEach((buch, index) =>  {
         if (buch === taste) {
@@ -53,7 +49,9 @@ function suchenBuch(taste) {
         }
     })
     if (counter === 0) {
-        fehlerIndex++;    
+        fehlerIndex++;   
+        console.log(button)
+        button.classList.add("falsch");
         hangmanImg.src = `./img/${fehlerImgArray[fehlerIndex]}`
         if (fehlerIndex === 7) {
             result.textContent = `Game Over. Suchwort war ${suchwort}`;
@@ -74,11 +72,29 @@ function wincontrolle(versuchArray) {
     }
 }
 
-function enteredBuchsControlle(taste) {
-    let result = buchsArray.includes(taste);
+function enteredBuchsControlle(tasteValue, taste) {
+    let result = buchsArray.includes(tasteValue);
     if (!result) {
-        buchsArray.push(taste);
-        suchenBuch(taste);
+        buchsArray.push(tasteValue);
+        suchenBuch(tasteValue, taste);
     }
     buchs.textContent = buchsArray.sort((a, b) => a.localeCompare(b)).join(" ");
+}
+
+function restart() {
+    console.log("---------------------------------------")
+    console.log("RESTART")
+    suchwort = worte[Math.floor(Math.random()*91100)];
+    suchwortArray = suchwort.toUpperCase().split("");
+    versuchArray = suchwortArray.slice().fill("_");
+    buchs.textContent = '';
+    buchsArray.length = 0;
+    fehlerIndex = 0;
+    hangmanImg.src = `./img/${fehlerImgArray[fehlerIndex]}`;
+    result.textContent = '';
+    draw(versuchArray) ;
+    buttons.forEach(button => {
+        button.disabled = false
+        button.classList.remove("falsch");
+    });
 }
