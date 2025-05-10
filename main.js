@@ -5,7 +5,7 @@ const hangmanImg = document.getElementById("hangmanImg"); // тут фото в�
 const searchedWordContainer = document.getElementById("searchedWord"); //  здесь слово зашифрованное покажут
 const gameResult = document.getElementById("gameResult"); //  вывод результата игры
 const letters = document.getElementById("letters"); // тут выводятся введенные уже буквы. потмо можно удалить
-const lettersArray = []; // сюда вводятся уже ранее нажатые клавиши 
+const enteredLetters = []; // сюда вводятся уже ранее нажатые клавиши 
 const buttons = document.querySelectorAll("button"); // кнопки с буквами. в первую очередь важны для смарта
 const abc = document.querySelector(".abc"); // НЕ ИСПОЛЬЗУЕТСЯЯ
 
@@ -24,22 +24,22 @@ document.addEventListener('keydown', function(event) { // нажатие на к
     const pressedKey = event.key.toUpperCase();   // клавиша принята, сведена к верхнему регистру
     if (/^[A-Z]$/.test(pressedKey)) {   // если латиница
         console.log('Gedrückte pressedKey:', pressedKey);
-        letterInputCheck(pressedKey);  // запуск функции проверки нажатой клавиши
+        checkLetterInput(pressedKey);  // запуск функции проверки нажатой клавиши
     }
 });
 
 buttons.forEach(button => {
     button.addEventListener("click", () => {
-        letterInputCheck(button.textContent, button);
+        checkLetterInput(button.textContent, button);
         button.disabled = true;
     })
 })
 
-function letterInputCheck(pressedkey, button) {
+function checkLetterInput(pressedkey, button) {
  
-    let result = lettersArray.includes(pressedkey);
+    let result = enteredLetters.includes(pressedkey);
     if (!result) {
-        lettersArray.push(pressedkey);
+        enteredLetters.push(pressedkey);
         if (!button) {
             // ЗДЕСЬ ПОТОМ ПЕРЕДЕЛАТЬ НА ВОЗМОЖНО FIND()
             buttons.forEach(button  => {
@@ -52,7 +52,7 @@ function letterInputCheck(pressedkey, button) {
         else {
         searchLetter(pressedkey, button);}
     }
-    letters.textContent = lettersArray.sort((a, b) => a.localeCompare(b)).join(" ");
+    letters.textContent = enteredLetters.sort((a, b) => a.localeCompare(b)).join(" ");
 }
 
 function draw(foundLettersArray) {
@@ -80,11 +80,11 @@ function searchLetter(pressedKey, button) {
     }
     else {
         draw(foundLettersArray);
-        wincontrolle(foundLettersArray);
+        checkWin(foundLettersArray);
     }
 }
 
-function wincontrolle(foundLettersArray) {
+function checkWin(foundLettersArray) {
     let controlle = foundLettersArray.some(num => num === "_");
     if (controlle === false) {
         gameResult.textContent = "You win";
@@ -101,7 +101,7 @@ function restart() {
     searchedWordArray = searchedWord.toUpperCase().split("");
     foundLettersArray = searchedWordArray.slice().fill("_");
     letters.textContent = '';
-    lettersArray.length = 0;
+    enteredLetters.length = 0;
     currentStageIndex = 0;
     hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}`;
     gameResult.textContent = '';
