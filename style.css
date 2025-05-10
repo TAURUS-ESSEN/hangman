@@ -7,11 +7,11 @@
     align-items: center;
 }
 
-.suchwort {
+.searchedWord {
     font-size: 2em;
 }
 
-.result {
+.gameResult {
     font-size: 2em;
     margin: 1em;
 }
@@ -46,4 +46,8 @@
 
 .falsch {
     background-color: red;
+}
+
+.correct {
+    background-color: green;
 }
