@@ -4,7 +4,6 @@ import {worte} from "./worte.js"
 const hangmanImg = document.getElementById("hangmanImg"); // тут фото висельника
 const searchedWordContainer = document.getElementById("searchedWord"); //  здесь слово зашифрованное покажут
 const gameResult = document.getElementById("gameResult"); //  вывод результата игры
-const letters = document.getElementById("letters"); // тут выводятся введенные уже буквы. потмо можно удалить
 const enteredLetters = []; // сюда вводятся уже ранее нажатые клавиши 
 const buttons = document.querySelectorAll("button"); // кнопки с буквами. в первую очередь важны для смарта
 const abc = document.querySelector(".abc"); // НЕ ИСПОЛЬЗУЕТСЯЯ
@@ -44,7 +43,6 @@ function checkLetterInput(pressedkey, button) {
             // ЗДЕСЬ ПОТОМ ПЕРЕДЕЛАТЬ НА ВОЗМОЖНО FIND()
             buttons.forEach(button  => {
                 if (button.textContent === pressedkey) {
-                    console.log("XXXXXX")
                     searchLetter(pressedkey, button);
                 }
             })
@@ -52,7 +50,6 @@ function checkLetterInput(pressedkey, button) {
         else {
         searchLetter(pressedkey, button);}
     }
-    letters.textContent = enteredLetters.sort((a, b) => a.localeCompare(b)).join(" ");
 }
 
 function draw(foundLettersArray) {
@@ -100,7 +97,6 @@ function restart() {
     searchedWord = worte[Math.floor(Math.random()*91100)];
     searchedWordArray = searchedWord.toUpperCase().split("");
     foundLettersArray = searchedWordArray.slice().fill("_");
-    letters.textContent = '';
     enteredLetters.length = 0;
     currentStageIndex = 0;
     hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}`;
