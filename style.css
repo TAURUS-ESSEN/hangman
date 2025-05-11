@@ -19,11 +19,13 @@ body {
 
 .searchedWord {
     font-size: 2em;
+    text-align: center;
 }
 
 .gameResult {
     font-size: 2em;
     margin: 0 0 1em 0;
+    text-align: center;
 }
 
 
