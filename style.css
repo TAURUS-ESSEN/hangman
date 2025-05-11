@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Galdeano&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oxanium:wght@200..800&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
+
+body {
+    font-family: 'Sour Gummy';
+}
+
 .wrapper {
     max-width: 500px;
     height: auto;
@@ -8,6 +14,7 @@
     border-radius: 10px;
     box-shadow: 0 0 5px black;
     padding: 1em;
+    background: url('./img/45degreee_fabric.webp');
 }
 
 .searchedWord {
@@ -16,7 +23,7 @@
 
 .gameResult {
     font-size: 2em;
-    margin: 1em;
+    margin: 0 0 1em 0;
 }
 
 
@@ -28,11 +35,29 @@
     justify-content: center;
 }
 
+.searchedWord {
+    /* background-color: rgb(227, 229, 232); */
+    margin: 1em;
+    font-weight: 500;
+    padding: 0.3em;
+    transition: 1s;
+    border-radius: 10px;
+}
+
 .abc>button {
     width: 44px;
     height: 44px;
     border-radius: 5px;
+    border: 1px solid gray;
     font-size: 1em;
+    transition: 0.6s;
+    color: black;
+    box-shadow: 0 0 3px rgb(116, 115, 115);
+     font-family: 'Sour Gummy';
+}
+
+button:hover {
+    transform: scale(1.2);
 }
 
 .wrong {
@@ -40,5 +65,5 @@
 }
 
 .correct {
-    background-color: green;
+    background-color: rgba(0, 128, 0, 0.537);
 }

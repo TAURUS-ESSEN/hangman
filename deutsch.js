@@ -1,4 +1,4 @@
-export const worte = ["Aale",
+export const words = ["Aale",
 "Aalen",
 "Aals",
 "Aas",

@@ -1,5 +1,5 @@
 'use strict';
-import {worte} from "./worte.js"
+import {words} from "./deutsch.js"
 
 const hangmanImg = document.getElementById("hangmanImg"); // тут фото висельника
 const searchedWordContainer = document.getElementById("searchedWord"); //  здесь слово зашифрованное покажут
@@ -8,7 +8,7 @@ const enteredLetters = []; // сюда вводятся уже ранее наж
 const buttons = document.querySelectorAll("button"); // кнопки с буквами. в первую очередь важны для смарта
 const abc = document.querySelector(".abc"); // НЕ ИСПОЛЬЗУЕТСЯЯ
 
-let searchedWord = worte[Math.floor(Math.random()*91100)]; // сгенерированное по индексу массива  слово
+let searchedWord = words[Math.floor(Math.random()*40099)]; // сгенерированное по индексу массива  слово
 console.log("generiertes searchedWord = ", searchedWord ) 
 let searchedWordArray = searchedWord.toUpperCase().split(""); // превращаем слово в массив букв
 console.log(searchedWordArray)
@@ -94,7 +94,7 @@ function checkWin(foundLettersArray) {
 function restart() {
     console.log("---------------------------------------")
     console.log("RESTART")
-    searchedWord = worte[Math.floor(Math.random()*91100)];
+    searchedWord = words[Math.floor(Math.random()*91100)];
     searchedWordArray = searchedWord.toUpperCase().split("");
     foundLettersArray = searchedWordArray.slice().fill("_");
     enteredLetters.length = 0;
