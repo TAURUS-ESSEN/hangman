@@ -92,7 +92,7 @@ function checkWin(foundLettersArray) {
 function restart() {
     console.log("---------------------------------------")
     console.log("RESTART")
-    searchedWord = words[Math.floor(Math.random()*91100)];
+    searchedWord = words[Math.floor(Math.random()*1000)];
     searchedWordArray = searchedWord.toUpperCase().split("");
     foundLettersArray = searchedWordArray.slice().fill("_");
     enteredLetters.length = 0;

@@ -24,6 +24,11 @@ button {
 }
 
 .searchedWord {
+    margin: 0.5em;
+    font-weight: 500;
+    padding: 0.3em;
+    transition: 1s;
+    border-radius: 10px;   
     font-size: 2em;
     text-align: center;
 }
@@ -37,7 +42,7 @@ button {
 .secretWordWas {
     background-color: rgba(0, 0, 0, 0.392);
     border-radius: 5px;
-    padding: 0.4em;
+    padding: 0.2em;
     color: rgb(255, 255, 255);
 }
 
@@ -49,18 +54,12 @@ button {
     justify-content: center;
 }
 
-.searchedWord {
-    margin: 1em;
-    font-weight: 500;
-    padding: 0.3em;
-    transition: 1s;
-    border-radius: 10px;
-}
 
 
 .buttonNewGame {
     width: 130px;
-    /* padding: 0.4em; */
+    padding: 0.4em;
+    margin-top: 0.5em;
     font-size: 0.8em;
     border-radius: 5px;
     transition: 0.5s;
