@@ -4,10 +4,16 @@ body {
     font-family: 'Sour Gummy';
 }
 
+
+button {
+    font-family: 'Sour Gummy';
+}
+
+
 .wrapper {
     max-width: 500px;
     height: auto;
-    margin: 10% auto;
+    margin: 2% auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,11 +29,17 @@ body {
 }
 
 .gameResult {
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 0 0 1em 0;
     text-align: center;
 }
 
+.secretWordWas {
+    background-color: rgba(0, 0, 0, 0.392);
+    border-radius: 5px;
+    padding: 0.4em;
+    color: rgb(255, 255, 255);
+}
 
 .abc {
     max-width: 600px;
@@ -38,7 +50,6 @@ body {
 }
 
 .searchedWord {
-    /* background-color: rgb(227, 229, 232); */
     margin: 1em;
     font-weight: 500;
     padding: 0.3em;
@@ -46,7 +57,30 @@ body {
     border-radius: 10px;
 }
 
-.abc>button {
+
+.buttonNewGame {
+    padding: 0.4em;
+    font-size: 0.8em;
+    border-radius: 5px;
+    transition: 0.5s;
+    background-color: lawngreen;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.show {
+    visibility: visible;
+    opacity: 100;
+}
+
+.buttonNewGame:hover {
+    background-color: rgb(195, 10, 241);
+    color: #fff;
+}
+
+
+
+.abc > button {
     width: 44px;
     height: 44px;
     border-radius: 5px;
@@ -55,7 +89,6 @@ body {
     transition: 0.6s;
     color: black;
     box-shadow: 0 0 3px rgb(116, 115, 115);
-     font-family: 'Sour Gummy';
 }
 
 button:hover {

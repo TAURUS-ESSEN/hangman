@@ -5,8 +5,8 @@ const hangmanImg = document.getElementById("hangmanImg"); // тут фото в�
 const searchedWordContainer = document.getElementById("searchedWord"); //  здесь слово зашифрованное покажут
 const gameResult = document.getElementById("gameResult"); //  вывод результата игры
 const enteredLetters = []; // сюда вводятся уже ранее нажатые клавиши 
-const buttons = document.querySelectorAll("button"); // кнопки с буквами. в первую очередь важны для смарта
-const abc = document.querySelector(".abc"); // НЕ ИСПОЛЬЗУЕТСЯЯ
+const buttonNewGame = document.getElementById("newGame")
+const buttons = document.querySelectorAll(".abc button"); 
 
 let searchedWord = words[Math.floor(Math.random()*40099)]; // сгенерированное по индексу массива  слово
 console.log("generiertes searchedWord = ", searchedWord ) 
@@ -18,6 +18,10 @@ draw(foundLettersArray)  // рисуем игру
 
 const hangmanStages = ['hm0.jpg', 'hm1.jpg','hm2.jpg','hm3.jpg','hm4.jpg','hm5.jpg', 'hm6.jpg', 'hm7.jpg'];
 let currentStageIndex = 0;
+
+buttonNewGame.addEventListener("click", () => {
+    restart()
+})
 
 document.addEventListener('keydown', function(event) { // нажатие на клавишу
     const pressedKey = event.key.toUpperCase();   // клавиша принята, сведена к верхнему регистру
@@ -35,17 +39,12 @@ buttons.forEach(button => {
 })
 
 function checkLetterInput(pressedkey, button) {
- 
     let result = enteredLetters.includes(pressedkey);
     if (!result) {
         enteredLetters.push(pressedkey);
         if (!button) {
-            // ЗДЕСЬ ПОТОМ ПЕРЕДЕЛАТЬ НА ВОЗМОЖНО FIND()
-            buttons.forEach(button  => {
-                if (button.textContent === pressedkey) {
-                    searchLetter(pressedkey, button);
-                }
-            })
+            const analogButton = Array.from(buttons).find(button => button.textContent === pressedkey)
+            searchLetter(pressedkey, analogButton);
         }
         else {
         searchLetter(pressedkey, button);}
@@ -65,14 +64,16 @@ function searchLetter(pressedKey, button) {
             button.classList.add("correct");
         }
     })
+
     if (counter === 0) {
         currentStageIndex++;   
         console.log(button);
         button.classList.add("wrong");
         hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}`
         if (currentStageIndex === 7) {
-            gameResult.textContent = `Game Over. searchedWord war ${searchedWord}`;
-            setTimeout(restart, 3000);
+            gameResult.innerHTML = `Game Over. <br> You didn't guess the word <span class="secretWordWas"> ${searchedWord} </span>`;
+            buttonNewGame.classList.add("show");
+
         }
     }
     else {
@@ -84,12 +85,10 @@ function searchLetter(pressedKey, button) {
 function checkWin(foundLettersArray) {
     let controlle = foundLettersArray.some(num => num === "_");
     if (controlle === false) {
-        gameResult.textContent = "You win";
-        setTimeout(restart, 3000);
+        gameResult.textContent = "You win!";
+        buttonNewGame.classList.add("show");
     }
 }
-
-
 
 function restart() {
     console.log("---------------------------------------")
@@ -107,4 +106,5 @@ function restart() {
         button.classList.remove("wrong");
         button.classList.remove("correct");
     });
+    buttonNewGame.classList.remove("show");
 }
