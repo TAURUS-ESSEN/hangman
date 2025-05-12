@@ -1,33 +1,29 @@
 'use strict';
-import {words} from "./deutsch.js"
+import {words} from "./english.js"
 
-const hangmanImg = document.getElementById("hangmanImg"); // тут фото висельника
-const searchedWordContainer = document.getElementById("searchedWord"); //  здесь слово зашифрованное покажут
-const gameResult = document.getElementById("gameResult"); //  вывод результата игры
-const enteredLetters = []; // сюда вводятся уже ранее нажатые клавиши 
-const buttonNewGame = document.getElementById("newGame")
+const hangmanImg = document.getElementById("hangmanImg");
+const searchedWordContainer = document.getElementById("searchedWord");
+const gameResult = document.getElementById("gameResult");
+const enteredLetters = [];
+const buttonNewGame = document.getElementById("newGame");
 const buttons = document.querySelectorAll(".abc button"); 
 
-let searchedWord = words[Math.floor(Math.random()*40099)]; // сгенерированное по индексу массива  слово
-console.log("generiertes searchedWord = ", searchedWord ) 
-let searchedWordArray = searchedWord.toUpperCase().split(""); // превращаем слово в массив букв
-console.log(searchedWordArray)
-let foundLettersArray = searchedWordArray.slice().fill("_"); // то что мы ввели, наш текущий угаданный массив букв
-console.log(foundLettersArray)
-draw(foundLettersArray)  // рисуем игру
+let searchedWord = words[Math.floor(Math.random()*1000)];
+let searchedWordArray = searchedWord.toUpperCase().split("");
+let foundLettersArray = searchedWordArray.slice().fill("_");
+draw(foundLettersArray);
 
-const hangmanStages = ['hm0.jpg', 'hm1.jpg','hm2.jpg','hm3.jpg','hm4.jpg','hm5.jpg', 'hm6.jpg', 'hm7.jpg'];
+const hangmanStages = ['hm0', 'hm1','hm2','hm3','hm4','hm5', 'hm6', 'hm7'];
 let currentStageIndex = 0;
 
 buttonNewGame.addEventListener("click", () => {
-    restart()
+    restart();
 })
 
-document.addEventListener('keydown', function(event) { // нажатие на клавишу
-    const pressedKey = event.key.toUpperCase();   // клавиша принята, сведена к верхнему регистру
-    if (/^[A-Z]$/.test(pressedKey)) {   // если латиница
-        console.log('Gedrückte pressedKey:', pressedKey);
-        checkLetterInput(pressedKey);  // запуск функции проверки нажатой клавиши
+document.addEventListener('keydown', function(event) {
+    const pressedKey = event.key.toUpperCase(); 
+    if (/^[A-Z]$/.test(pressedKey)) {  
+        checkLetterInput(pressedKey);  
     }
 });
 
@@ -43,8 +39,11 @@ function checkLetterInput(pressedkey, button) {
     if (!result) {
         enteredLetters.push(pressedkey);
         if (!button) {
-            const analogButton = Array.from(buttons).find(button => button.textContent === pressedkey)
+            const analogButton = Array.from(buttons).find(button => button.textContent === pressedkey);
             searchLetter(pressedkey, analogButton);
+            if (analogButton) {
+                analogButton.disabled = true;
+            }
         }
         else {
         searchLetter(pressedkey, button);}
@@ -67,13 +66,12 @@ function searchLetter(pressedKey, button) {
 
     if (counter === 0) {
         currentStageIndex++;   
-        console.log(button);
         button.classList.add("wrong");
-        hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}`
+        hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}.png`;
         if (currentStageIndex === 7) {
+            buttons.forEach ( button => button.disabled = true);
             gameResult.innerHTML = `Game Over. <br> You didn't guess the word <span class="secretWordWas"> ${searchedWord} </span>`;
             buttonNewGame.classList.add("show");
-
         }
     }
     else {
@@ -85,6 +83,7 @@ function searchLetter(pressedKey, button) {
 function checkWin(foundLettersArray) {
     let controlle = foundLettersArray.some(num => num === "_");
     if (controlle === false) {
+        buttons.forEach ( button => button.disabled = true);
         gameResult.textContent = "You win!";
         buttonNewGame.classList.add("show");
     }
@@ -98,11 +97,11 @@ function restart() {
     foundLettersArray = searchedWordArray.slice().fill("_");
     enteredLetters.length = 0;
     currentStageIndex = 0;
-    hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}`;
+    hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}.png`;
     gameResult.textContent = '';
     draw(foundLettersArray) ;
     buttons.forEach(button => {
-        button.disabled = false
+        button.disabled = false;
         button.classList.remove("wrong");
         button.classList.remove("correct");
     });
