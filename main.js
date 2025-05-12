@@ -1,5 +1,5 @@
 'use strict';
-import {words} from "./english.js"
+import {words} from "./english300.js"
 
 const hangmanImg = document.getElementById("hangmanImg");
 const searchedWordContainer = document.getElementById("searchedWord");
@@ -8,7 +8,7 @@ const enteredLetters = [];
 const buttonNewGame = document.getElementById("newGame");
 const buttons = document.querySelectorAll(".abc button"); 
 
-let searchedWord = words[Math.floor(Math.random()*1000)];
+let searchedWord = words[Math.floor(Math.random()*300)];
 let searchedWordArray = searchedWord.toUpperCase().split("");
 let foundLettersArray = searchedWordArray.slice().fill("_");
 draw(foundLettersArray);
@@ -92,7 +92,7 @@ function checkWin(foundLettersArray) {
 function restart() {
     console.log("---------------------------------------")
     console.log("RESTART")
-    searchedWord = words[Math.floor(Math.random()*1000)];
+    searchedWord = words[Math.floor(Math.random()*300)];
     searchedWordArray = searchedWord.toUpperCase().split("");
     foundLettersArray = searchedWordArray.slice().fill("_");
     enteredLetters.length = 0;

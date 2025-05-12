@@ -4,11 +4,9 @@ body {
     font-family: 'Sour Gummy';
 }
 
-
 button {
     font-family: 'Sour Gummy';
 }
-
 
 .wrapper {
     max-width: 500px;
@@ -54,8 +52,6 @@ button {
     justify-content: center;
 }
 
-
-
 .buttonNewGame {
     width: 130px;
     padding: 0.4em;
@@ -77,8 +73,6 @@ button {
     background-color: rgb(195, 10, 241);
     color: #fff;
 }
-
-
 
 .abc > button {
     width: 44px;
