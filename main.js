@@ -70,7 +70,7 @@ function searchLetter(pressedKey, button) {
         hangmanImg.src = `./img/${hangmanStages[currentStageIndex]}.png`;
         if (currentStageIndex === 7) {
             buttons.forEach ( button => button.disabled = true);
-            gameResult.innerHTML = `Game Over. <br> You didn't guess the word <span class="secretWordWas"> ${searchedWord} </span>`;
+            gameResult.innerHTML = `Game Over. <br> Secret word: <span class="secretWordWas"> ${searchedWord} </span>`;
             buttonNewGame.classList.add("show");
         }
     }

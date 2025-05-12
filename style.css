@@ -59,7 +59,8 @@ button {
 
 
 .buttonNewGame {
-    padding: 0.4em;
+    width: 130px;
+    /* padding: 0.4em; */
     font-size: 0.8em;
     border-radius: 5px;
     transition: 0.5s;
